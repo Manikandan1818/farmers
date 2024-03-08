@@ -8,9 +8,9 @@ export default {
         oswald: ["Oswald", "sans-serif"],
       },
       colors: {
-        primaryColor: "#AE6234",
-        secondaryColor: "#00C9AA",
-        iconColor: "#fefdfd",
+        primaryColor: "#F5F4EF",
+        secondaryColor: "#E7E8E0",
+        iconColor: "#0A4F2F",
         secondaryColor1: "#4C8077",
       },
     },
