@@ -21,4 +21,7 @@
 }
 
 @layer utilities {
+  .form-input {
+    @apply mt-1 mb-2 w-full bg-primaryColor px-2 py-1 rounded-xl outline-none focus-within:outline-iconColor;
+  }
 }

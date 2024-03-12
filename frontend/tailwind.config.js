@@ -10,7 +10,8 @@ export default {
       colors: {
         primaryColor: "#F5F4EF",
         secondaryColor: "#E7E8E0",
-        iconColor: "#0A4F2F",
+        iconColor: "#404040",
+        greycolor: "#636363",
         secondaryColor1: "#4C8077",
       },
     },
