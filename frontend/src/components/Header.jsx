@@ -11,11 +11,11 @@ const Header = () => {
     setShowMenu((prev) => !prev);
   };
   return (
-    <header className="fixed w-full h-16 shadow-sm px-2 md:px-4 bg-secondaryColor shadow-iconColor">
+    <header className="fixed w-full h-16 px-2 md:px-4 bg-primaryColor ">
       {/* desktop */}
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
-          <div className="h-12">
+          <div className="h-16">
             <img src={logo} alt="logo" className="h-full" />
           </div>
         </Link>
@@ -36,7 +36,7 @@ const Header = () => {
           <div className="" onClick={handleShowMenu}>
             <FaUserCircle className="text-3xl text-iconColor cursor-pointer" />
             {showMenu && (
-              <div className="flex flex-col whitespace-nowrap absolute right-1 cursor-pointer bg-secondaryColor shadow-sm shadow-iconColor px-2 py-2">
+              <div className="flex flex-col whitespace-nowrap absolute right-1 cursor-pointer bg-primaryColor shadow-sm shadow-iconColor px-2 py-2">
                 <Link to={"newproduct"}>New Product</Link>
                 <Link to={"signin"}>Signin</Link>
               </div>

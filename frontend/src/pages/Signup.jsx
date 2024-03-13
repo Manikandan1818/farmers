@@ -1,11 +1,25 @@
 import { useState } from "react";
-import signup from "../assest/signup.png";
+import signupImage from "../assest/signup.png";
 import { BiHide, BiShow } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ImagetoBase64 } from "../utilities/ImagetoBase64";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    image: "",
+  });
+
+  console.log(data);
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -13,31 +27,90 @@ const Signup = () => {
     setShowConfirmPassword((prev) => !prev);
   };
 
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleUploadFileImage = async (e) => {
+    const data = await ImagetoBase64(e.target.files[0]);
+    setData((prev) => {
+      return {
+        ...prev,
+        image: data,
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { firstName, email, password, confirmPassword } = data;
+    if (firstName && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        alert("Sucessful!");
+        navigate("/signin");
+      } else {
+        alert("Password and confirm password not equal");
+      }
+    } else {
+      alert("Please enter required fields");
+    }
+  };
+
   return (
     <section className="flex flex-col w-full max-w-md bg-secondaryColor m-auto mt-3 md:mt-4 p-4">
-      <div className="w-24 overflow-hidden m-auto">
-        <img src={signup} className="w-full" />
+      <div className="w-20 h-20 overflow-hidden m-auto rounded-full shadow-md shadow-iconColor relative">
+        <img
+          src={data.image ? data.image : signupImage}
+          className="w-full h-full"
+        />
+        <label htmlFor="profileImage">
+          <div className="absolute bottom-0 h-1/3 bg-iconColor w-full text-center text-sm text-white p-1 opacity-60 cursor-pointer">
+            Upload
+          </div>
+          <input
+            type="file"
+            id="profileImage"
+            accept="image/*"
+            className="hidden"
+            onChange={handleUploadFileImage}
+          />
+        </label>
       </div>
-      {/* <h1 className="text-iconColor font-extrabold text-3xl font-oswald mt-2 mb-2">
-        Sign up
-      </h1> */}
-      <form className="w-full py-3 flex flex-col">
+
+      <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
         <label htmlFor="firstname">First Name</label>
         <input
           type="text"
           id="firstname"
-          name="firstname"
+          name="firstName"
           className="form-input"
+          value={data.firstName}
+          onChange={handleOnChange}
         />
         <label htmlFor="firstname">Last Name</label>
         <input
           type="text"
           id="lastname"
-          name="lastname"
+          name="lastName"
           className="form-input"
+          value={data.lastName}
+          onChange={handleOnChange}
         />
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" className="form-input" />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          className="form-input"
+          value={data.email}
+          onChange={handleOnChange}
+        />
         <label htmlFor="password">Password</label>
         <div className="flex bg-primaryColor px-2 py-1 mt-1 mb-2 rounded-xl focus-within:outline outline-2 focus-within:outline-iconColor">
           <input
@@ -45,6 +118,8 @@ const Signup = () => {
             id="password"
             name="password"
             className="w-full bg-primaryColor outline-none"
+            value={data.password}
+            onChange={handleOnChange}
           />
           <span
             className="flex text-xl cursor-pointer"
@@ -58,8 +133,10 @@ const Signup = () => {
           <input
             type={showConfirmPassword ? "text" : "password"}
             id="confirmpassword"
-            name="confirmpassword"
+            name="confirmPassword"
             className="w-full bg-primaryColor outline-none"
+            value={data.confirmPassword}
+            onChange={handleOnChange}
           />
           <span
             className="flex text-xl cursor-pointer"
@@ -74,7 +151,7 @@ const Signup = () => {
       </form>
       <p className="text-left text-sm mt-2">
         Already have an account?{" "}
-        <Link to={"signin"} className="text-iconColor underline">
+        <Link to={"/signin"} className="text-iconColor underline">
           Sign in
         </Link>
       </p>
