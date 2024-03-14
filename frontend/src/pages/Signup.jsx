@@ -65,6 +65,7 @@ const Signup = () => {
         );
         const resData = await fetchData.json();
         console.log(resData);
+        alert("Sucessful!");
 
         // navigate("/signin");
       } else {
