@@ -1,31 +1,10 @@
-Malta #BCAC9C
-Shingle Fawn #765638
-Tonys Pink #E99987
-Key Lime Pie #ABCB25
-
-Brown sugar #AC6735
-Black Olive 46423D
-
-#F23D3D
-
-
-#fefdfd
-#49433b
-#ae6234
-#97b22a
-#bfb09a
-#000000
-
-
-Final plallet
-
-#AE6234
-#00C9AA
-#C4FCF0
-#4C8077
-
-
-
 1. Install vite + react
 2. Tailwind css
 3. React router dom
+4. React Icons
+5. Process .env have to update using vite-config.js - https://dev.to/boostup/uncaught-referenceerror-process-is-not-defined-12kg
+
+Backend:
+1. Npm init
+2. express cors moongose
+3. nodemon
