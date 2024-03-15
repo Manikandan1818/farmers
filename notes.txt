@@ -10,3 +10,4 @@ Backend:
 3. nodemon
 4. dotenv - for env file
 5. type : "module" - // type module used import insetd of require // 
+6. bcrypt for password hash

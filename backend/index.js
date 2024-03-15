@@ -3,9 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+import authRoutes from "./routes/auth.js";
+
 const app = express();
 dotenv.config();
-
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
@@ -17,6 +18,19 @@ const connect = () =>
       console.log("Connected to Database...");
     })
     .catch((err) => console.log(err));
+
+app.post("/signup", authRoutes);
+
+// Error Handeling
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || "Something went wrong";
+  return res.status(status).json({
+    sucessful: false,
+    status,
+    message,
+  });
+});
 
 // ServerConnection & DB
 app.listen(8080, () => {
