@@ -1,9 +1,11 @@
 import { useState } from "react";
 import signup from "../assest/signup.png";
 import { BiHide, BiShow } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Signin = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     email: "",
@@ -25,11 +27,28 @@ const Signin = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, email, password, confirmPassword } = data;
     if (email && password) {
-      alert("Sucessful!");
+      try {
+        const fetchData = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/signin`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        const res = await fetchData.json(data);
+        toast(res.message);
+        if (res.alert) {
+          navigate("/");
+        }
+      } catch (error) {
+        toast(error);
+      }
     } else {
       alert("Please enter required fields");
     }

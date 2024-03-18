@@ -8,7 +8,7 @@ import authRoutes from "./routes/auth.js";
 const app = express();
 dotenv.config();
 app.use(cors());
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "50mb" }));
 
 // MondoDBConnection
 const connect = () =>
@@ -20,6 +20,7 @@ const connect = () =>
     .catch((err) => console.log(err));
 
 app.post("/signup", authRoutes);
+app.post("/signin", authRoutes);
 
 // Error Handeling
 app.use((err, req, res, next) => {

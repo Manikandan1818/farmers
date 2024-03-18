@@ -3,6 +3,8 @@
 3. React router dom
 4. React Icons
 5. Process .env have to update using vite-config.js - https://dev.to/boostup/uncaught-referenceerror-process-is-not-defined-12kg
+6. npm install react-hot-toast - for notificaation
+
 
 Backend:
 1. Npm init

@@ -3,12 +3,13 @@ import signupImage from "../assest/signup.png";
 import { BiHide, BiShow } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utilities/ImagetoBase64";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState(false);
 
   const [data, setData] = useState({
     firstName: "",
@@ -22,8 +23,9 @@ const Signup = () => {
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((prev) => !prev);
+
+  const handleConfirmPassword = () => {
+    setConfirmPassword((prev) => !prev);
   };
 
   const handleOnChange = (e) => {
@@ -59,11 +61,13 @@ const Signup = () => {
           body: JSON.stringify(data),
         }
       );
-      const dataRes = await fetchData.json();
-      console.log(dataRes);
-      alert(dataRes.message);
+      const res = await fetchData.json();
+      toast(res.message);
+      if (res.alert) {
+        navigate("/signin");
+      }
     } catch (error) {
-      console.log(error);
+      toast(error);
     }
   };
 
@@ -133,11 +137,11 @@ const Signup = () => {
             {showPassword ? <BiShow /> : <BiHide />}
           </span>
         </div>
-        <label htmlFor="confirmpassword">Confirm Password</label>
+        <label htmlFor="confirmPassword">Confirm Password</label>
         <div className="flex bg-primaryColor px-2 py-1 mt-1 mb-2 rounded-xl focus-within:outline outline-2 focus-within:outline-iconColor">
           <input
-            type={showConfirmPassword ? "text" : "password"}
-            id="confirmpassword"
+            type={confirmPassword ? "text" : "password"}
+            id="confirmPassword"
             name="confirmPassword"
             className="w-full bg-primaryColor outline-none"
             value={data.confirmPassword}
@@ -145,11 +149,12 @@ const Signup = () => {
           />
           <span
             className="flex text-xl cursor-pointer"
-            onClick={handleShowConfirmPassword}
+            onClick={handleConfirmPassword}
           >
-            {showConfirmPassword ? <BiShow /> : <BiHide />}
+            {confirmPassword ? <BiShow /> : <BiHide />}
           </span>
         </div>
+
         <button className="w-full max-w-[150px] m-auto bg-iconColor hover:bg-greycolor text-white text-xl font-medium font-oswald uppercase py-2 rounded-full mt-4 cursor-pointer">
           Sign up
         </button>
