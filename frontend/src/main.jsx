@@ -8,6 +8,7 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
+
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
@@ -15,6 +16,9 @@ import Menu from "./pages/Menu.jsx";
 import Signin from "./pages/Signin.jsx";
 import NewProduct from "./pages/NewProduct.jsx";
 import Signup from "./pages/Signup.jsx";
+
+import { Provider } from "react-redux";
+import { store } from "./redux/store.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +35,7 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router}>
-    <App />
-  </RouterProvider>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );

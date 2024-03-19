@@ -3,8 +3,12 @@ import signup from "../assest/signup.png";
 import { BiHide, BiShow } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { loginFailure, loginStart, loginSucess } from "../redux/userSlice";
 
 const Signin = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
@@ -29,6 +33,7 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email && password) {
+      dispatch(loginStart());
       try {
         const fetchData = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/signin`,
@@ -42,13 +47,14 @@ const Signin = () => {
         );
         const res = await fetchData.json();
         toast(res.message);
+        dispatch(loginSucess(res.data));
         if (res.alert) {
           setTimeout(() => {
             navigate("/");
           }, 1000);
         }
       } catch (error) {
-        toast(error);
+        dispatch(loginFailure());
       }
     } else {
       alert("Please enter required fields");
