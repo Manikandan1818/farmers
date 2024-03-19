@@ -12,7 +12,6 @@ const Signin = () => {
     password: "",
   });
 
-  console.log(data);
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -41,10 +40,12 @@ const Signin = () => {
             body: JSON.stringify(data),
           }
         );
-        const res = await fetchData.json(data);
+        const res = await fetchData.json();
         toast(res.message);
         if (res.alert) {
-          navigate("/");
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
         }
       } catch (error) {
         toast(error);
