@@ -18,31 +18,23 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   try {
-    const result = await User.findOne({
-      email: req.body.email,
-    });
-    if (result) {
-      const dataSend = {
-        _id: result._id,
-        firstName: result.firstName,
-        lastName: result.lastName,
-        email: result.email,
-        image: result.image,
-      };
-      console.log(dataSend);
-      res.send({
-        message: "Signed in Sucessfully",
-        alert: true,
-        data: dataSend,
-      });
-    } else {
-      res.send({
-        message: "Email not found. Please sign up",
+    const user = await User.findOne({ email: req.body.email });
+    if (!user)
+      return res.send({
+        message: "User not found. Please sign up",
         alert: false,
       });
-    }
+
+    const { password, confirmPassword, ...others } = user._doc;
+
+    console.log(user);
+    res.send({
+      message: "Signed in Sucessfully",
+      alert: true,
+      data: others,
+    });
     // Password Compare
-    // const isCorrect = await bcrypt.compare(req.body.password, result.password);
+    // const isCorrect = await bcrypt.compare(req.body.password, user.password);
     // if (!isCorrect) {
     //   res.send({ message: "Wrong Creditianls", alert: false });
     // }

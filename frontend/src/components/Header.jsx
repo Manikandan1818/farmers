@@ -4,12 +4,25 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { navLinks } from "../constants";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/userSlice";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
+
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast("Logout Sucessfully");
+  };
+
   return (
     <header className="fixed w-full h-16 px-2 md:px-4 bg-primaryColor ">
       {/* desktop */}
@@ -34,11 +47,35 @@ const Header = () => {
             </div>
           </div>
           <div className="" onClick={handleShowMenu}>
-            <FaUserCircle className="text-3xl text-iconColor cursor-pointer" />
+            <div className="w-full h-full">
+              {currentUser ? (
+                <img
+                  src={currentUser.image}
+                  alt="user"
+                  className="h-10 w-10 rounded-full overflow-hidden"
+                />
+              ) : (
+                <FaUserCircle className="text-3xl text-iconColor" />
+              )}
+            </div>
             {showMenu && (
-              <div className="flex flex-col whitespace-nowrap absolute right-1 cursor-pointer bg-primaryColor shadow-sm shadow-iconColor px-2 py-2">
-                <Link to={"newproduct"}>New Product</Link>
-                <Link to={"signin"}>Signin</Link>
+              <div className="flex flex-col whitespace-nowrap absolute right-1 cursor-pointer bg-primaryColor shadow-sm shadow-iconColor py-2">
+                <Link to={"newproduct"} className="px-2">
+                  New Product
+                </Link>
+
+                {currentUser ? (
+                  <p
+                    className="cursor-pointer text-white bg-iconColor px-2"
+                    onClick={handleLogout}
+                  >
+                    Signout
+                  </p>
+                ) : (
+                  <Link to={"signin"} className="px-2">
+                    Signin
+                  </Link>
+                )}
               </div>
             )}
           </div>
