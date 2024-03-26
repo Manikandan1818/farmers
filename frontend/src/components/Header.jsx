@@ -52,7 +52,7 @@ const Header = () => {
                 <img
                   src={currentUser.image}
                   alt="user"
-                  className="h-10 w-10 rounded-full overflow-hidden"
+                  className="h-8 w-8 rounded-full overflow-hidden"
                 />
               ) : (
                 <FaUserCircle className="text-3xl text-iconColor" />

@@ -72,7 +72,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="flex flex-col w-full max-w-md bg-secondaryColor m-auto mt-3 md:mt-4 p-4">
+    <section className="flex flex-col w-full max-w-md bg-secondaryColor m-auto mt-5 md:mt-2 p-4">
       <div className="w-20 h-20 overflow-hidden m-auto rounded-full shadow-md shadow-iconColor relative">
         <img
           src={data.image ? data.image : signupImage}

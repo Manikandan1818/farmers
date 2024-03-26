@@ -62,11 +62,7 @@ const Signin = () => {
   };
 
   return (
-    <section className="flex flex-col w-full max-w-md bg-secondaryColor m-auto mt-3 md:mt-4 p-4">
-      <div className="w-20 overflow-hidden m-auto rounded-full shadow-md shadow-iconColor">
-        <img src={signup} className="w-full" />
-      </div>
-
+    <section className="flex flex-col w-full max-w-md bg-secondaryColor m-auto mt-5 md:mt-2 p-4">
       <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
